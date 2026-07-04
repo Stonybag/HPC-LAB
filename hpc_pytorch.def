@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.3.0-cuda11.8-cudnn8-runtime
+
+%labels
+    Author Prince Anirah
+    Version 1.0
+    Description HPC PyTorch container for GPU workloads
+
+%post
+    pip install --no-cache-dir numpy scipy matplotlib pandas
+
+%environment
+    export PYTHONPATH=/opt/conda/lib/python3.10/site-packages:$PYTHONPATH
+
+%runscript
+    echo "HPC PyTorch Container v1.0"
+    exec python3 "$@"
+
+%test
+    python3 -c "import torch, numpy, scipy; print('All packages OK')"
